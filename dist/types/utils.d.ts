@@ -89,6 +89,7 @@ export declare function computeMaxSplats(numSplats: number): number;
 export declare function isMobile(): boolean;
 export declare function isAndroid(): boolean;
 export declare function isOculus(): boolean;
+export declare function isQuest2(): boolean;
 export declare function isIos(): boolean;
 export declare function isVisionPro(): boolean;
 export declare function flipPixels(pixels: Uint8Array, width: number, height: number): Uint8Array;

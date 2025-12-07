@@ -18,7 +18,7 @@ export { constructGrid, constructAxes, constructSpherePoints, imageSplats, textS
 export * as generators from './generators';
 export * as modifiers from './modifiers';
 export { VRButton } from './vrButton';
-export { SparkXr, type SparkXrOptions, type SparkXrButton } from './SparkXr';
+export * from './SparkXr';
 export { type JointId, JointEnum, JOINT_IDS, NUM_JOINTS, JOINT_INDEX, JOINT_RADIUS, JOINT_SEGMENTS, JOINT_SEGMENT_STEPS, JOINT_TIPS, FINGER_TIPS, Hand, HANDS, type Joint, type HandJoints, type HandsJoints, XrHands, HandMovement, } from './hands';
 export { SparkControls, FpsMovement, PointerControls } from './controls';
 export { isMobile, isAndroid, isOculus, flipPixels, pixelsToPngUrl, toHalf, fromHalf, floatToUint8, floatToSint8, Uint8ToFloat, Sint8ToFloat, setPackedSplat, unpackSplat, } from './utils';

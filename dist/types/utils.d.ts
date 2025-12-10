@@ -15,14 +15,19 @@ export declare function Sint8ToFloat(v: number): number;
 export declare class DataCache {
     maxItems: number;
     asyncFetch: (key: string) => Promise<unknown>;
+    dispose?: (data: unknown) => void;
     items: {
         key: string;
         data: unknown;
     }[];
-    constructor({ asyncFetch, maxItems, }: {
+    pending: Map<string, Promise<unknown>>;
+    constructor({ asyncFetch, dispose, maxItems, }: {
         asyncFetch: (key: string) => Promise<unknown>;
+        dispose?: (data: unknown) => void;
         maxItems?: number;
     });
+    has(key: string): boolean;
+    getImmediate(key: string): unknown | undefined;
     getFetch(key: string): Promise<unknown>;
 }
 export declare function mapObject(obj: Record<string, unknown>, fn: (value: unknown, key: string) => unknown): Record<string, unknown>;

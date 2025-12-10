@@ -141,6 +141,8 @@ export interface NewSparkRendererOptions {
     globalLodScale?: number;
     outsideFoveate?: number;
     behindFoveate?: number;
+    coneFov?: number;
+    coneFoveate?: number;
     numLodFetchers?: number;
     target?: {
         /**
@@ -216,6 +218,8 @@ export declare class NewSparkRenderer extends THREE.Mesh {
     globalLodScale: number;
     outsideFoveate: number;
     behindFoveate: number;
+    coneFov: number;
+    coneFoveate: number;
     numLodFetchers: number;
     lodWorker: NewSplatWorker | null;
     lodMeshes: {
@@ -238,6 +242,10 @@ export declare class NewSparkRenderer extends THREE.Mesh {
         texture: THREE.DataTexture;
     }>;
     lodFetchers: Promise<void>[];
+    chunksToFetch: {
+        lodId: number;
+        chunk: number;
+    }[];
     lodInserts: {
         lodId: number;
         pageBase: number;
@@ -344,6 +352,8 @@ export declare class NewSparkRenderer extends THREE.Mesh {
     private driveLod;
     private initLodTree;
     private updateLodInstances;
+    private driveLodFetchers;
+    private fetchLodChunk;
     private cleanupLodTrees;
     private updateLodIndices;
     private readbackDepth;

@@ -17,6 +17,7 @@ export type SplatMeshOptions = {
     onProgress?: (event: ProgressEvent) => void;
     onLoad?: (mesh: SplatMesh) => Promise<void> | void;
     editable?: boolean;
+    raycastable?: boolean;
     onFrame?: ({ mesh, time, deltaTime, }: {
         mesh: SplatMesh;
         time: number;
@@ -26,11 +27,13 @@ export type SplatMeshOptions = {
     worldModifier?: GsplatModifier;
     splatEncoding?: SplatEncoding;
     lod?: boolean | number;
-    nonLod?: boolean;
+    nonLod?: boolean | "wait";
     enableLod?: boolean;
     lodScale?: number;
     outsideFoveate?: number;
     behindFoveate?: number;
+    coneFov?: number;
+    coneFoveate?: number;
 };
 export type SplatMeshContext = {
     transform: SplatTransformer;
@@ -65,6 +68,7 @@ export declare class SplatMesh extends SplatGenerator {
     skinning: SplatSkinning | null;
     edits: SplatEdit[] | null;
     editable: boolean;
+    raycastable: boolean;
     private rgbaDisplaceEdits;
     splatRgba: RgbaArray | null;
     maxSh: number;
@@ -72,6 +76,8 @@ export declare class SplatMesh extends SplatGenerator {
     lodScale: number;
     outsideFoveate?: number;
     behindFoveate?: number;
+    coneFov?: number;
+    coneFoveate?: number;
     constructor(options?: SplatMeshOptions);
     asyncInitialize(options: SplatMeshOptions): Promise<void>;
     static staticInitialized: Promise<void>;

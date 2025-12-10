@@ -18,6 +18,7 @@ export declare class SplatSkinning {
     constructor(options: SplatSkinningOptions);
     modify(gsplat: DynoVal<typeof Gsplat>): DynoVal<typeof Gsplat>;
     setRestQuatPos(boneIndex: number, quat: THREE.Quaternion, pos: THREE.Vector3): void;
+    getRestQuatPos(boneIndex: number, quat: THREE.Quaternion, pos: THREE.Vector3): void;
     setBoneQuatPos(boneIndex: number, quat: THREE.Quaternion, pos: THREE.Vector3): void;
     setSplatBones(splatIndex: number, boneIndices: THREE.Vector4, weights: THREE.Vector4): void;
     updateBones(): void;

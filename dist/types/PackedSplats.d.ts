@@ -32,8 +32,12 @@ export type PackedSplatsOptions = {
     extra?: Record<string, unknown>;
     splatEncoding?: SplatEncoding;
     lod?: boolean | number;
-    nonLod?: boolean;
+    nonLod?: boolean | "wait";
     lodSplats?: PackedSplats;
+    maxBoneSplats?: number;
+    computeBoneWeights?: boolean;
+    minBoneOpacity?: number;
+    boneSplats?: PackedSplats;
     paged?: {
         url: string;
         requestHeader?: Record<string, string>;
@@ -47,15 +51,20 @@ export declare class PackedSplats {
     extra: Record<string, unknown>;
     splatEncoding?: SplatEncoding;
     lod?: boolean | number;
-    nonLod?: boolean;
+    nonLod?: boolean | "wait";
     lodSplats?: PackedSplats;
+    maxBoneSplats?: number;
+    computeBoneWeights?: boolean;
+    minBoneOpacity?: number;
+    boneSplats?: PackedSplats;
     paged?: {
         url: string;
         requestHeader?: Record<string, string>;
         withCredentials?: boolean;
     };
-    pageCache: THREE.DataTexture | null;
-    chunkToPage: Map<number, number>;
+    pageCache: THREE.DataArrayTexture | null;
+    chunkToPage: Map<number, number | null>;
+    chunkEvict: number[];
     pageFreelist: number[];
     pageMax: number;
     pageTop: number;
@@ -97,11 +106,11 @@ export declare class PackedSplats {
     getTexture(): THREE.DataArrayTexture;
     ensurePagedTexture(): void;
     allocTexturePage(): number | undefined;
+    freeTexturePage(page: number): void;
     uploadTexturePage(renderer: THREE.WebGLRenderer, packedArray: Uint32Array, page: number): void;
-    getPagedTexture(): THREE.DataTexture;
+    getPagedTexture(): THREE.DataArrayTexture;
     private maybeUpdateSource;
     static getEmptyArray: THREE.DataArrayTexture;
-    static getEmptyFlat: THREE.DataTexture;
     prepareProgramMaterial(generator: GsplatGenerator): {
         program: DynoProgram;
         material: THREE.RawShaderMaterial;
@@ -116,7 +125,8 @@ export declare class PackedSplats {
     }): {
         nextBase: number;
     };
-    disposeLodSplats(): Promise<void>;
+    disposeLodSplats(): void;
+    disposeBoneSplats(): void;
     createLodSplats({ rgbaArray }?: {
         rgbaArray?: RgbaArray;
     }): Promise<void>;
@@ -127,10 +137,9 @@ export declare class PackedSplats {
 export declare const dynoPackedSplats: (packedSplats?: PackedSplats) => DynoPackedSplats;
 export declare class DynoPackedSplats extends DynoUniform<typeof TPackedSplats, "packedSplats", {
     textureArray: THREE.DataArrayTexture;
-    texture: THREE.DataTexture;
     numSplats: number;
     rgbMinMaxLnScaleMinMax: THREE.Vector4;
-    flagsFlatLodOpacity: number;
+    flagsPagedLodOpacity: number;
 }> {
     packedSplats?: PackedSplats;
     constructor({ packedSplats }?: {

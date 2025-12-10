@@ -16,6 +16,7 @@ export interface SparkXrOptions {
     onReady?: (supported: boolean) => void | Promise<void>;
     onEnterXr?: () => void | Promise<void>;
     onExitXr?: () => void | Promise<void>;
+    controllers?: SparkXrControllers;
 }
 export interface SparkXrButton {
     enterXrHtml?: string;
@@ -35,6 +36,32 @@ export interface SparkXrButton {
     exitStyle?: CSSStyleDeclaration;
     zIndex?: number;
 }
+export type XrGamepads = {
+    left?: Gamepad;
+    right?: Gamepad;
+};
+export interface SparkXrControllers {
+    moveSpeed?: number;
+    rotateSpeed?: number;
+    rollSpeed?: number;
+    fastMultiplier?: number;
+    slowMultiplier?: number;
+    moveHeading?: boolean;
+    getMove?: (gamepads: XrGamepads, sparkXr: SparkXr) => THREE.Vector3;
+    getRotate?: (gamepads: XrGamepads, sparkXr: SparkXr) => THREE.Vector3;
+    getFast?: (gamepads: XrGamepads, sparkXr: SparkXr) => boolean;
+    getSlow?: (gamepads: XrGamepads, sparkXr: SparkXr) => boolean;
+}
+export declare const DEFAULT_CONTROLLER_MOVE_SPEED = 1;
+export declare const DEFAULT_CONTROLLER_ROTATE_SPEED = 4;
+export declare const DEFAULT_CONTROLLER_ROLL_SPEED = 2;
+export declare const DEFAULT_CONTROLLER_FAST_MULTIPLIER = 5;
+export declare const DEFAULT_CONTROLLER_SLOW_MULTIPLIER: number;
+export declare const DEFAULT_CONTROLLER_MOVE_HEADING = false;
+export declare const DEFAULT_CONTROLLER_GETMOVE: (gamepads: XrGamepads, sparkXr: SparkXr) => THREE.Vector3;
+export declare const DEFAULT_CONTROLLER_GETROTATE: (gamepads: XrGamepads, sparkXr: SparkXr) => THREE.Vector3;
+export declare const DEFAULT_CONTROLLER_GETFAST: (gamepads: XrGamepads, sparkXr: SparkXr) => boolean;
+export declare const DEFAULT_CONTROLLER_GETSLOW: (gamepads: XrGamepads, sparkXr: SparkXr) => boolean;
 export declare enum JointEnum {
     w = "wrist",
     t0 = "thumb-metacarpal",
@@ -98,6 +125,8 @@ export declare class SparkXr {
     session?: XRSession;
     onEnterXr?: () => void;
     onExitXr?: () => void;
+    controllers?: SparkXrControllers;
+    lastControllersUpdate: number;
     enableHands: boolean;
     hands: XrHand[];
     constructor(options: SparkXrOptions);
@@ -171,6 +200,7 @@ export declare class SparkXr {
     static HANDS: Hand[];
     left(): XrHand;
     right(): XrHand;
+    updateControllers(camera: THREE.Camera): void;
     updateHands({ xrFrame }: {
         xrFrame: XRFrame;
     }): void;

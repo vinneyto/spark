@@ -1,5 +1,6 @@
 [workspace]
 members = [
+    "build-clip",
     "build-lod",
     "spark-rs",
     "spark-lib",

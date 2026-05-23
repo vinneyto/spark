@@ -10,6 +10,7 @@ use spark_lib::{
     gsplat::GsplatArray,
     ply::PlyEncoder,
     spz::SpzEncoder,
+    tsplat::{Tsplat, TsplatArray},
 };
 
 #[derive(Debug, Deserialize, Clone, Copy)]
@@ -252,7 +253,7 @@ fn main() -> anyhow::Result<()> {
         if splat.opacity() < args.opacity_min {
             return false;
         }
-        let inside = clip.contains(splat.center);
+        let inside = clip.contains(splat.center.into());
         match args.keep {
             KeepMode::Inside => inside,
             KeepMode::Outside => !inside,

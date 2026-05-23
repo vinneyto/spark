@@ -105,6 +105,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "build-clip"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "glam",
+ "serde",
+ "serde_json",
+ "spark-lib",
+]
+
+[[package]]
 name = "build-lod"
 version = "0.1.0"
 dependencies = [

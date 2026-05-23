@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sparkjs.dev/schemas/build-clip.schema.json",
+  "title": "build-clip clipping shape",
+  "type": "object",
+  "oneOf": [
+    {
+      "required": ["type", "radius", "height", "position", "quaternion"],
+      "properties": {
+        "type": { "const": "cylinder" },
+        "radius": { "type": "number", "exclusiveMinimum": 0 },
+        "height": { "type": "number", "exclusiveMinimum": 0 },
+        "position": {
+          "type": "array",
+          "items": { "type": "number" },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "quaternion": {
+          "type": "array",
+          "items": { "type": "number" },
+          "minItems": 4,
+          "maxItems": 4
+        }
+      },
+      "additionalProperties": false
+    }
+  ]
+}

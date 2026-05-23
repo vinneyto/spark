@@ -1,14 +1,16 @@
 {
-  "input": "scene.ply",
-  "output": "scene-clipped.ply",
-  "output_format": "ply",
-  "keep": "inside",
-  "opacity_min": 0.0,
-  "clip": {
-    "type": "cylinder",
-    "center": [0.0, 0.0, 0.0],
-    "axis": [0.0, 1.0, 0.0],
-    "radius": 2.5,
-    "half_height": 4.0
-  }
+  "type": "cylinder",
+  "radius": 0.46,
+  "height": 0.97,
+  "position": [
+    -0.06652441108336316,
+    -0.051435383621816294,
+    0.15485121633322899
+  ],
+  "quaternion": [
+    0,
+    0,
+    0,
+    1
+  ]
 }

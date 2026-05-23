@@ -1,40 +1,38 @@
 # build-clip
 
-Minimal Rust CLI scaffold for clipping splats from a JSON config.
+Minimal Rust CLI for clipping splats by a JSON clipping shape.
 
 ## Usage
 
 ```bash
 cd rust
-cargo run -p build-clip -- --dry-run ./build-clip/examples/cylinder.json
-cargo run -p build-clip -- ./build-clip/examples/cylinder.json
+cargo run -p build-clip -- ./path/to/file.ply --clipping-json ./build-clip/examples/cylinder.json
+cargo run -p build-clip -- ./path/to/file.ply --output ./path/to/file-clipped.ply --clipping-json ./build-clip/examples/cylinder.json
 ```
 
-## Config schema
+`--output` is optional. If omitted, output is created next to input with `-clipped` suffix.
+
+Optional flags:
+- `--dry-run`
+- `--keep inside|outside` (default: `inside`)
+- `--opacity-min <0..1>` (default: `0`)
+- `--output-format ply|spz` (default: `ply`)
+
+## Clipping JSON schema
 
 See `clip.schema.json`.
 
-Supported now:
-- `clip.type = "cylinder"`
-- `keep = "inside" | "outside"`
-- `opacity_min` (optional)
-- `output_format = "ply" | "spz"`
+Current supported shape:
+- `type = "cylinder"`
 
-## Example config
+## Example clipping JSON
 
 ```json
 {
-  "input": "scene.ply",
-  "output": "scene-clipped.ply",
-  "output_format": "ply",
-  "keep": "inside",
-  "opacity_min": 0.0,
-  "clip": {
-    "type": "cylinder",
-    "center": [0.0, 0.0, 0.0],
-    "axis": [0.0, 1.0, 0.0],
-    "radius": 2.5,
-    "half_height": 4.0
-  }
+  "type": "cylinder",
+  "radius": 0.46,
+  "height": 0.97,
+  "position": [-0.0665, -0.0514, 0.1548],
+  "quaternion": [0, 0, 0, 1]
 }
 ```

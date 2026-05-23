@@ -1,54 +1,29 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://sparkjs.dev/schemas/build-clip.schema.json",
-  "title": "build-clip config",
+  "title": "build-clip clipping shape",
   "type": "object",
-  "additionalProperties": false,
-  "required": ["input", "clip"],
-  "properties": {
-    "input": { "type": "string", "minLength": 1 },
-    "output": { "type": "string", "minLength": 1 },
-    "output_format": {
-      "type": "string",
-      "enum": ["ply", "spz"],
-      "default": "ply"
-    },
-    "keep": {
-      "type": "string",
-      "enum": ["inside", "outside"],
-      "default": "inside"
-    },
-    "opacity_min": {
-      "type": "number",
-      "minimum": 0,
-      "maximum": 1,
-      "default": 0
-    },
-    "clip": {
-      "type": "object",
-      "oneOf": [
-        {
-          "required": ["type", "center", "axis", "radius", "half_height"],
-          "properties": {
-            "type": { "const": "cylinder" },
-            "center": {
-              "type": "array",
-              "items": { "type": "number" },
-              "minItems": 3,
-              "maxItems": 3
-            },
-            "axis": {
-              "type": "array",
-              "items": { "type": "number" },
-              "minItems": 3,
-              "maxItems": 3
-            },
-            "radius": { "type": "number", "exclusiveMinimum": 0 },
-            "half_height": { "type": "number", "exclusiveMinimum": 0 }
-          },
-          "additionalProperties": false
+  "oneOf": [
+    {
+      "required": ["type", "radius", "height", "position", "quaternion"],
+      "properties": {
+        "type": { "const": "cylinder" },
+        "radius": { "type": "number", "exclusiveMinimum": 0 },
+        "height": { "type": "number", "exclusiveMinimum": 0 },
+        "position": {
+          "type": "array",
+          "items": { "type": "number" },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "quaternion": {
+          "type": "array",
+          "items": { "type": "number" },
+          "minItems": 4,
+          "maxItems": 4
         }
-      ]
+      },
+      "additionalProperties": false
     }
-  }
+  ]
 }
